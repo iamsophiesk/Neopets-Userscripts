@@ -36,6 +36,11 @@
         debug("Finished caching all item data.");
       });
     } else if (isQuickStockPage()) {
+      // Quickstock is now paginated and it loads in dynamically, so need to
+      // observe the table to keep an eye out for changes.
+      observeQuickstockTable();
+
+      // But the initial page still needs images added!
       debug("Adding images to quickstock...");
       addImagesToQuickStock();
       debug("Finished adding images to quickstock.");
@@ -127,8 +132,30 @@
     return value ? JSON.parse(value) : null;
   }
 
+  function observeQuickstockTable() {
+    const observer = new MutationObserver((records) => {
+      for (const record of records) {
+        if (record.target === 'childList' && !record.nextSibling) {
+          observer.disconnect();
+        }
+      }
+
+      addImagesToQuickStock();
+    });
+
+    observer.observe(document.querySelector('.quickstock-table'), {
+      childList: true,
+      subtree: true,
+    });
+  }
+
   function addImagesToQuickStock() {
     const items = getQuickstockItems();
+    if (!items.length) {
+      debug("No items in quick stock.");
+      return;
+    }
+
     items.forEach(addImageToQuickstockItem);
   }
 
