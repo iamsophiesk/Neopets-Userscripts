@@ -214,6 +214,15 @@
 
     textContainer.innerHTML = itemData.flags;
 
+    if (itemData.isNc) {
+      // Weird one: NC items are now indicated by an invisible span.
+      const ncIndicator = document.createElement('span');
+      ncIndicator.classList = 'qs-cash-marker';
+      ncIndicator.style.display = 'none';
+
+      textContainer.prepend(ncIndicator);
+    }
+
     const name = document.createElement("span");
     name.textContent = item.name;
     name.style.fontSize = "1.1em";
