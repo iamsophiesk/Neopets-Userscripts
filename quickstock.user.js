@@ -160,10 +160,12 @@
       return [];
     }
 
-    // The header and check all rows bgcolors don't start with #f, so as long as they never change it....... lolol
-    const rows = form.querySelectorAll("tr[bgcolor^='#f']");
-
+    // Quickstock update: rows all have this class. Including the empty row
+    // separating the Neopoint items from the NeoCash ones. And the NeoCash
+    // items. And the row with the "check all" options. BUT WHATEVER.
+    const rows = form.querySelectorAll('.np-table-row');
     const items = [];
+
     rows.forEach((row) => {
       const name = row.querySelector("td").textContent.trim();
       const itemData = loadItemData(name);
