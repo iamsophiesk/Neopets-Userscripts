@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Neopets Fancy Quickstock
 // @namespace    https://hiddenist.com
-// @version      2024-07-19
+// @version      2026-04-16
 // @description  Adds item images and information to the quickstock page after caching data from the inventory page.
 // @author       Hiddenist
 // @match        https://www.neopets.com/quickstock.phtml*
